@@ -10,7 +10,7 @@ def pad_sequences(seqs: list, pad_value: int = 0, max_len: int | None = None) ->
     if not seqs:
         return np.zeros((0,0), dtype = int)
         
-    L = max_len if max_len else max(len(seq) for seq in seqs)
+    L = max_len if max_len is not None else max(len(seq) for seq in seqs)
 
     rows = [] #存储复制的列表
     for seq in seqs:
@@ -18,6 +18,6 @@ def pad_sequences(seqs: list, pad_value: int = 0, max_len: int | None = None) ->
         row.extend([pad_value] * (L - len(seq))) #利用extend填充，extend内必须是可迭代对象，比如列表
         rows.append(row)
         
-    ans = np.array(rows)
+    ans = np.array(rows, dtype = int)
     return ans
     pass
